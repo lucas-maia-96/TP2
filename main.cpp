@@ -18,6 +18,7 @@ int get_idx(char a, string b) {
   for (i = 0; i < b.length(); i++) {
     if (a == b[i]) return i;
   }
+  return 0;
 }
 
 bool comp(string& a, string& b, string ordem) {
@@ -61,7 +62,7 @@ void Ordena(int Esq, int Dir, string* A, string ordem) {
 void QuickSort(string* A, string ordem, int n) { Ordena(0, n - 1, A, ordem); }
 
 int main(int argc, char const* argv[]) {
-  int i = 0;
+  int i = 0, j = 0, qtd = 1, k = 0;
   string ordem = "Q A Z W S X E D C R F V T G B Y H N M U J I K O L P";
   to_low(ordem);
   string texto_bruto =
@@ -78,13 +79,21 @@ int main(int argc, char const* argv[]) {
   string token;
   string texto[200000];
   while (getline(ss, token, ' ')) {
+    to_low(token);
+    for (k = 0; k < token.length(); k++) {
+      if (token[k] == '.' || token[k] == ',') token.erase(k--, 1);
+    }
     texto[i] = token;
     i++;
   }
-  for (string& a : texto) to_low(a);
+
   QuickSort(texto, ordem, i);
   for (int j = 0; j < i; j++) {
-    cout << texto[j] << endl;
+    if ((texto[j] != texto[j + 1])) {
+      cout << texto[j] << " " << qtd << endl;
+      qtd = 1;
+    } else
+      qtd++;
   }
 
   return 0;
