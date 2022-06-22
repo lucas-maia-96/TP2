@@ -13,16 +13,20 @@ void to_low(string& a) {
   }
 }
 
+int get_idx(char a, string b) {
+  int i = 0;
+  for (i = 0; i < b.length(); i++) {
+    if (a == b[i]) return i;
+  }
+}
+
 bool comp(string& a, string& b, string ordem) {
   int i = 0, j = 0, ida = 0, idb = 0;
   for (i = 0; i < min(a.length(), b.length()); i++) {
     if (a[i] != b[i]) {
-      for (j = 0; j < ordem.length(); j++) {
-        if (a[i] == ordem[j])
-          return true;
-        else if (b[i] == ordem[j])
-          return false;
-      }
+      ida = get_idx(a[i], ordem);
+      idb = get_idx(b[i], ordem);
+      return ida < idb;
     };
   }
 
@@ -58,7 +62,7 @@ void QuickSort(string* A, string ordem, int n) { Ordena(0, n - 1, A, ordem); }
 
 int main(int argc, char const* argv[]) {
   int i = 0;
-  string ordem = "QAZWSXEDCRFVTGBYHNMUJIKOLP";
+  string ordem = "Q A Z W S X E D C R F V T G B Y H N M U J I K O L P";
   to_low(ordem);
   string texto_bruto =
       "Sofisticado, o Tenis Adidas Top Ten Low Sleek W e o tipo de calcado que "
@@ -72,13 +76,13 @@ int main(int argc, char const* argv[]) {
 
   stringstream ss(texto_bruto);
   string token;
-  string texto[texto_bruto.length()];
+  string texto[200000];
   while (getline(ss, token, ' ')) {
     texto[i] = token;
     i++;
   }
   for (string& a : texto) to_low(a);
-  QuickSort(texto, ordem, 6);
+  QuickSort(texto, ordem, i);
   for (int j = 0; j < i; j++) {
     cout << texto[j] << endl;
   }
