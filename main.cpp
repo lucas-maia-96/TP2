@@ -18,44 +18,57 @@ int main(int argc, char const* argv[]) {
   int i = 0, j = 0, qtd = 1, k = 0;
 
   fstream input_file;
+  fstream outpu_file;
+  string token;
+  string ordem = "";
+  string texto[10000];
+  string texto_bruto;
+  stringstream ss(texto_bruto);
 
   input_file.open("1.tst.i", fstream::in);
 
-  string ordem = "Q A Z W S X E D C R F V T G B Y H N M U J I K O L P";
-  to_low(ordem);
-  string texto_bruto =
-      "Sofisticado, o Te..nis Adidas Top Ten Low Sleek W e o tipo de calcado "
-      "que "
-      "faz uma baita diferenca no look da mulher moderna. Confeccionada em "
-      "Couro predominante, sua parte superior promove um calce suave por "
-      "longas horas. Alem disso, tem solado em Borracha para excelente tracao "
-      "em superficies escorregadias. Mude os rumos de sua casualidade, va de "
-      "Originals e faca efeito em diversas ocasioes.";
+  getline(input_file, token);
+  getline(input_file, texto_bruto);
 
-  to_low(texto_bruto);
+  ss << texto_bruto;
 
-  stringstream ss(texto_bruto);
-  string token;
-  string texto[200000];
   while (getline(ss, token, ' ')) {
     to_low(token);
+    ordem.append(token);
+  }
+
+  to_low(ordem);
+
+  getline(input_file, token);
+
+  while (!input_file.eof()) {
+    getline(input_file, token, ' ');
+    to_low(token);
     for (k = 0; k < token.length(); k++) {
-      if (token[k] == '.' || token[k] == ',') token.erase(k--, 1);
+      if (token[k] == '.' || token[k] == ',' || token[k] == '\n')
+        token.erase(k--, 1);
     }
     texto[i] = token;
     i++;
   }
 
   QuickSort(texto, ordem, i);
+
+  outpu_file.open("output_file.txt", fstream::out);
+
   for (int j = 0; j < i; j++) {
     if ((texto[j] != texto[j + 1])) {
-      cout << texto[j] << " " << qtd << endl;
+      outpu_file << texto[j] << " " << qtd << endl;
       qtd = 1;
     } else
       qtd++;
   }
 
+  outpu_file << "#FIM";
+
   input_file.close();
+
+  outpu_file.close();
 
   return 0;
 }
