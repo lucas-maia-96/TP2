@@ -25,7 +25,7 @@ int main(int argc, char const* argv[]) {
   string texto_bruto;
   stringstream ss(texto_bruto);
 
-  input_file.open("10.tst.i", fstream::in);
+  input_file.open("4.tst.i", fstream::in);
 
   getline(input_file, token);
   getline(input_file, texto_bruto);
