@@ -18,14 +18,14 @@ int main(int argc, char const* argv[]) {
   int i = 0, j = 0, qtd = 1, k = 0;
 
   fstream input_file;
-  fstream outpu_file;
+  fstream output_file;
   string token;
   string ordem = "";
   string texto[10000];
   string texto_bruto;
   stringstream ss(texto_bruto);
 
-  input_file.open("1.tst.i", fstream::in);
+  input_file.open("10.tst.i", fstream::in);
 
   getline(input_file, token);
   getline(input_file, texto_bruto);
@@ -42,33 +42,40 @@ int main(int argc, char const* argv[]) {
   getline(input_file, token);
 
   while (!input_file.eof()) {
-    getline(input_file, token, ' ');
-    to_low(token);
-    for (k = 0; k < token.length(); k++) {
-      if (token[k] == '.' || token[k] == ',' || token[k] == '\n')
-        token.erase(k--, 1);
+    ss.clear();
+    texto_bruto.clear();
+    getline(input_file, texto_bruto, '\n');
+    ss << texto_bruto;
+    while (getline(ss, token, ' ')) {
+      to_low(token);
+      for (k = 0; k < token.length(); k++) {
+        if (token[k] == '.' || token[k] == ',' || token[k] == '!' ||
+            token[k] == '?' || token[k] == ':' || token[k] == ';' ||
+            token[k] == '_')
+          token.erase(k--, 1);
+      }
+      texto[i] = token;
+      i++;
     }
-    texto[i] = token;
-    i++;
   }
 
   QuickSort(texto, ordem, i);
 
-  outpu_file.open("output_file.txt", fstream::out);
+  output_file.open("output_file.txt", fstream::out);
 
   for (int j = 0; j < i; j++) {
     if ((texto[j] != texto[j + 1])) {
-      outpu_file << texto[j] << " " << qtd << endl;
+      output_file << texto[j] << " " << qtd << endl;
       qtd = 1;
     } else
       qtd++;
   }
 
-  outpu_file << "#FIM";
+  output_file << "#FIM";
 
   input_file.close();
 
-  outpu_file.close();
+  output_file.close();
 
   return 0;
 }
