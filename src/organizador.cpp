@@ -2,15 +2,15 @@
 
 int get_idx(char a, string b) {
   int i = 0;
-  for (i = 0; i < b.length(); i++) {
+  for (i = 0; i < (int)(b.length()); i++) {
     if (a == b[i]) return 57 + i;
   }
   return a;
 }
 
 bool comp(string& a, string& b, string ordem) {
-  int i = 0, j = 0, ida = 0, idb = 0;
-  for (i = 0; i < min(a.length(), b.length()); i++) {
+  int i = 0, ida = 0, idb = 0;
+  for (i = 0; i < (int)min(a.length(), b.length()); i++) {
     if (a[i] != b[i]) {
       ida = get_idx(a[i], ordem);
       idb = get_idx(b[i], ordem);

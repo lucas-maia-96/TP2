@@ -9,7 +9,7 @@
 
 void to_low(string& a) {
   int i = 0;
-  for (i = 0; i < a.length(); i++) {
+  for (i = 0; i < (int)a.length(); i++) {
     if (a[i] >= 65 && a[i] <= 90) {
       a[i] += 32;
     }
@@ -86,7 +86,7 @@ int main(int argc, char* const* argv) {
     ss << texto_bruto;
     while (getline(ss, token, ' ')) {
       to_low(token);
-      for (k = 0; k < token.length(); k++) {
+      for (k = 0; k < (int)token.length(); k++) {
         if (token[k] == '.' || token[k] == ',' || token[k] == '!' ||
             token[k] == '?' || token[k] == ':' || token[k] == ';' ||
             token[k] == '_')
@@ -106,7 +106,7 @@ int main(int argc, char* const* argv) {
     return 0;
   }
 
-  for (int j = 0; j < i; j++) {
+  for (j = 0; j < i; j++) {
     if ((texto[j] != texto[j + 1])) {
       output_file << texto[j] << " " << qtd << endl;
       qtd = 1;
