@@ -17,7 +17,7 @@ void to_low(string& a) {
 }
 
 int main(int argc, char* const* argv) {
-  int i = 0, j = 0, qtd = 1, k = 0, c, mediana, minimo;
+  int i = 0, j = 0, qtd = 1, k = 0, c, mediana = 2, minimo = 6;
 
   opterr = 0;
 
